@@ -1,0 +1,62 @@
+#
+# Dacks CMS - Main .htaccess File
+#
+# @project     Dacks CMS
+# @version     0.0.1
+# @author      Dacks
+# @description This file handles URL rewriting for clean URLs, improves
+#              security by blocking access to sensitive files, and sets
+#              core server options for the application. All public
+#              requests are routed through this file.
+# @creation_date 2025-07-05
+#
+
+#===================================================================
+# SECTION 1: CORE SERVER CONFIGURATION
+#===================================================================
+
+# Disable server-generated directory listings for security.
+# This prevents visitors from seeing a list of files in directories
+# that do not have an index file.
+Options -Indexes
+
+
+#===================================================================
+# SECTION 2: URL REWRITING ENGINE
+#===================================================================
+# This section enables the clean URL functionality. It rewrites all
+# non-file and non-directory requests to the main index.php file,
+# which then handles the routing internally.
+
+# Turn on the URL rewriting engine.
+RewriteEngine On
+
+# Conditions: Do not apply the rewrite rule if the request is for
+# an existing file (-f) or an existing directory (-d). This allows
+# direct access to assets like CSS files, images, and scripts.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# The Rewrite Rule:
+# Captures the entire requested URL path (.*) and passes it as a 'url'
+# query parameter to index.php.
+# [L]   - Last rule. Stops processing further rewrite rules.
+# [QSA] - Query String Append. Preserves any existing query string.
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+
+
+#===================================================================
+# SECTION 3: SECURITY DIRECTIVES
+#===================================================================
+# These rules enhance security by explicitly denying web access to
+# critical or sensitive files.
+
+# Deny access to this .htaccess file itself.
+<Files .htaccess>
+    Require all denied
+</Files>
+
+# Deny direct browser access to the main configuration file.
+<Files config.php>
+    Require all denied
+</Files>

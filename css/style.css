@@ -1,0 +1,118 @@
+/*
+ * Dacks CMS - Main Custom Stylesheet
+ *
+ * @project       Dacks CMS
+ * @version       v.0.0.2
+ * @author        Dackary McDab / Zachary MacPhee (MacWeb Canada | https://macweb.ca/)
+ * @description   This file contains all custom styles for the Modern Fantasy theme.
+ * It defines CSS variables, custom classes, and styles that work
+ * alongside the Tailwind CSS framework to achieve the desired look
+ * and feel.
+ * @last_updated  July 5, 2025
+ */
+
+
+/* ======================================================= */
+/* SECTION 1: GLOBAL VARIABLES & FONTS                     */
+/* ======================================================= */
+/* Defines the core color palette and font families for the site. */
+
+:root {
+    --theme-bg: #2d0e09;
+    --theme-panel: #221502;
+    --theme-border: #221502;
+    --theme-text: #a1722f;
+    --theme-text-hover: #b98d4a;
+}
+
+.font-heading {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.5px;
+}
+
+.font-body {
+    font-family: Arial, sans-serif;
+}
+
+
+/* ======================================================= */
+/* SECTION 2: BASE & LAYOUT STYLES                         */
+/* ======================================================= */
+/* Defines the base styles for the body, page wrapper, and logo. */
+
+.body-background {
+    background-color: #5d170b;
+    background-image: url("https://www.transparenttextures.com/patterns/black-scales.png");
+    color: var(--theme-text);
+}
+
+.page-frame {
+    background-color: var(--theme-bg);
+    border: 2px solid var(--theme-border);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+.logo-img {
+    width: 255px;
+    height: 70px;
+    object-fit: contain;
+}
+
+
+/* ======================================================= */
+/* SECTION 3: REUSABLE COMPONENTS                          */
+/* ======================================================= */
+/* Defines styles for common, reusable UI elements like panels and borders. */
+
+.panel-header {
+    background: linear-gradient(to bottom, var(--theme-bg), var(--theme-panel));
+    border-bottom: 1px solid var(--theme-border);
+    cursor: pointer;
+    color: var(--theme-text);
+}
+
+.panel-content-dark {
+    background-color: rgba(34, 21, 2, 0.5); /* theme-panel with opacity */
+}
+
+.news-card-header {
+    background-color: var(--theme-panel);
+    border-bottom: 1px solid var(--theme-border);
+    color: var(--theme-text);
+}
+
+.ornate-border {
+    border: 1px solid var(--theme-border);
+    background-color: var(--theme-bg);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px var(--theme-border);
+}
+
+
+/* ======================================================= */
+/* SECTION 4: SLIDER STYLES                                */
+/* ======================================================= */
+/* Custom styles for the promotional slider. */
+
+.slider-container {
+    transform: translateX(0%);
+}
+
+
+/* ======================================================= */
+/* SECTION 5: FOOTER STYLES                                */
+/* ======================================================= */
+/* Defines the distinct styles for the footer sections. */
+
+.footer-content {
+    background-color: rgba(34, 21, 2, 0.3); /* Slightly transparent panel color */
+    border-top: 2px solid var(--theme-border);
+}
+
+.footer-bar {
+    background-color: var(--theme-panel);
+    border-top: 2px solid var(--theme-border);
+}
