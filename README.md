@@ -1,5 +1,7 @@
 Icon: fa-solid fa-code
-Description: Custom Content Management System
-GitHub: https://github.com/Lhorath/DNDTools
 
-# Directory Tool: A Dynamic PHP Project Hub
+Description: Custom Content Management System
+
+GitHub: https://github.com/Lhorath/DackCMS
+
+# DackCMS: Trying to Build Custom CMS for custom projects.
