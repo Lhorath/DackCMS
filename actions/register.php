@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (PDOException $e) {
             $errors[] = "A database error occurred while checking for existing users.";
-            // In production, log the detailed error: error_log($e->getMessage());
+            error_log('Register duplicate check failed: ' . $e->getMessage());
         }
     }
     
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         } catch (PDOException $e) {
             $errors[] = "A critical database error occurred. Could not register user.";
-            // In production, log the detailed error: error_log($e->getMessage());
+            error_log('Register insert failed: ' . $e->getMessage());
         }
     }
 

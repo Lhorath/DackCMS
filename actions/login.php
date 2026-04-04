@@ -71,8 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     } catch (PDOException $e) {
-        // In a production environment, this error should be logged to a file.
-        // error_log("Login database error: " . $e->getMessage());
+        error_log('Login database error: ' . $e->getMessage());
         $_SESSION['flash_errors'] = ["An unexpected error occurred. Please try again later."];
         header('Location: ' . get_page_url('login'));
         exit();

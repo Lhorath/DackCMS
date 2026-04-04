@@ -31,6 +31,9 @@ Options -Indexes
 # Turn on the URL rewriting engine.
 RewriteEngine On
 
+# Block direct HTTP access to log files if the logs directory is under the web root.
+RewriteRule ^logs(/|$) - [F,L]
+
 # Document root is this project folder (live: http://dackcms.dackdns.ddns.net/).
 # If the app lives in a subdirectory, set this to that path (e.g. RewriteBase /dackcms/).
 RewriteBase /

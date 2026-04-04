@@ -43,9 +43,6 @@ try {
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
     
 } catch (PDOException $e) {
-    // If the connection fails, terminate the script and display an error.
-    // In a production environment, this error should be logged to a private
-    // file and a generic error message should be shown to the user.
-    // error_log("Database connection failed: " . $e->getMessage());
-    die("Error: Unable to connect to the database. Please try again later.");
+    error_log('Database connection failed: ' . $e->getMessage());
+    die('Error: Unable to connect to the database. Please try again later.');
 }

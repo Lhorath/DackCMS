@@ -24,13 +24,13 @@
             include_once ROOT_PATH . '/includes/partials/flash-messages.php';
             ?>
 
-            <form action="<?php echo get_page_url('action/contact'); ?>" method="POST" class="space-y-4">
+            <form action="<?php echo BASE_URL; ?>actions/contact.php" method="POST" class="space-y-4">
                 <div>
                     <label for="name" class="block text-sm font-medium text-[#a1722f]/90">Your Name</label>
                     <input type="text" name="name" id="name" class="mt-1 block w-full bg-[#221502] border border-[#221502]/50 rounded-md shadow-sm py-2 px-3 text-[#a1722f] focus:outline-none focus:ring-[#a1722f] focus:border-[#a1722f] sm:text-sm" required>
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium text-[#a1722f]/90">Your Email</h3abel>
+                    <label for="email" class="block text-sm font-medium text-[#a1722f]/90">Your Email</label>
                     <input type="email" name="email" id="email" class="mt-1 block w-full bg-[#221502] border border-[#221502]/50 rounded-md shadow-sm py-2 px-3 text-[#a1722f] focus:outline-none focus:ring-[#a1722f] focus:border-[#a1722f] sm:text-sm" required>
                 </div>
                 <div>

@@ -53,7 +53,7 @@ $meta_data = $meta_data ?? [
 
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/style.css">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js" crossorigin="anonymous"></script>
 
 </head>
 <body class="bg-[#5d170b] font-body body-background">

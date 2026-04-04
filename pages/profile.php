@@ -36,9 +36,7 @@ try {
     $user_data = $stmt->fetch();
     
 } catch (PDOException $e) {
-    // In production, this should be logged.
-    // error_log("Profile page query failed: " . $e->getMessage());
-    // We can allow the page to render with a null user_data, which will be handled below.
+    error_log('Profile page query failed: ' . $e->getMessage());
 }
 
 // If for any reason the user data could not be fetched, redirect away.

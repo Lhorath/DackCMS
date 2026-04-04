@@ -33,9 +33,9 @@ try {
         SELECT
             p.id,
             p.content_path,
-            COALESCE(pm.title, dpm.title) AS meta_title,
-            COALESCE(pm.description, dpm.description) AS meta_description,
-            COALESCE(pm.keywords, dpm.keywords) AS meta_keywords,
+            COALESCE(pm.meta_title, dpm.meta_title) AS meta_title,
+            COALESCE(pm.meta_description, dpm.meta_description) AS meta_description,
+            COALESCE(pm.meta_keywords, dpm.meta_keywords) AS meta_keywords,
             COALESCE(pm.og_image, dpm.og_image) AS og_image
         FROM
             pages p
@@ -81,13 +81,28 @@ if ($page_data) {
     $pages_dir = realpath(ROOT_PATH . '/pages/');
     
     if (!$page_path || !str_starts_with($page_path, $pages_dir)) {
-        // Path traversal attempt detected or file doesn't exist
-        error_log("Security: Invalid content path attempted: " . $page_data['content_path']);
+        // Path traversal, missing file, or path outside /pages: serve 404 and default meta (not the bad row's SEO data).
+        error_log('Security: Invalid content path attempted: ' . $page_data['content_path']);
         $requested_page = '404';
         $page_path = ROOT_PATH . '/pages/404.php';
+        $meta_data = null;
+        try {
+            $stmt = $pdo->query('SELECT meta_title, meta_description, meta_keywords, og_image FROM page_meta WHERE page_id IS NULL LIMIT 1');
+            $meta_data = $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log('Failed to fetch default meta after invalid content_path: ' . $e->getMessage());
+        }
+        if (!$meta_data) {
+            $meta_data = [
+                'meta_title' => SITE_TITLE,
+                'meta_description' => 'Welcome to ' . SITE_TITLE,
+                'meta_keywords' => '',
+                'og_image' => '',
+            ];
+        }
+    } else {
+        $meta_data = $page_data;
     }
-    
-    $meta_data = $page_data;
 } else {
     // No permitted page was found, so load the 404 page content.
     $requested_page = '404';
@@ -95,7 +110,7 @@ if ($page_data) {
     
     // For the 404 page, we need to get the default meta data directly.
     try {
-        $stmt = $pdo->query("SELECT * FROM page_meta WHERE page_id IS NULL LIMIT 1");
+        $stmt = $pdo->query('SELECT meta_title, meta_description, meta_keywords, og_image FROM page_meta WHERE page_id IS NULL LIMIT 1');
         $meta_data = $stmt->fetch();
     } catch (PDOException $e) {
         error_log("Failed to fetch default meta data: " . $e->getMessage());

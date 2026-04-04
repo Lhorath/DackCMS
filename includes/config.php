@@ -13,6 +13,15 @@
 
 define('ROOT_PATH', dirname(__DIR__));
 
+require_once __DIR__ . '/env.php';
+load_dotenv(ROOT_PATH . '/.env');
+
+// Ensure the logs directory exists when error_log points under ROOT_PATH (production).
+$logs_dir = ROOT_PATH . '/logs';
+if (!is_dir($logs_dir)) {
+    @mkdir($logs_dir, 0750, true);
+}
+
 //===================================================================
 // SECTION 1: ERROR REPORTING & ENVIRONMENT
 //===================================================================
@@ -79,26 +88,19 @@ define('SITE_TITLE', 'Modern Fantasy');
 define('SITE_AUTHOR', 'Dackary McDab / Zachary MacPhee');
 define('SITE_VERSION', 'v.0.0.2');
 
+// Optional recipient for contact form mail(); if empty, submissions are logged only.
+define('CONTACT_FORM_TO', env_str('CONTACT_FORM_TO', ''));
+
 
 //===================================================================
 // SECTION 4: DATABASE CREDENTIALS
 //===================================================================
-// All database connection details are stored here. These values are
-// used in /includes/db.php to establish a connection.
+// Loaded from .env (root of project). Defaults match local MySQL/MariaDB.
 
-if ($is_production) {
-    // Production database settings
-    define('DB_HOST', 'your-production-host');
-    define('DB_USER', 'your-production-user');
-    define('DB_PASS', 'your-production-password');
-    define('DB_NAME', 'your-production-database');
-} else {
-    // Development database settings
-    define('DB_HOST', '127.0.0.1');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_NAME', 'dackcms');
-}
+define('DB_HOST', env_str('DB_HOST', 'localhost'));
+define('DB_USER', env_str('DB_USER', 'root'));
+define('DB_PASS', env_str('DB_PASS', ''));
+define('DB_NAME', env_str('DB_NAME', 'dackcms'));
 
 
 //===================================================================

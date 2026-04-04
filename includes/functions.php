@@ -18,20 +18,20 @@
 // ===================================================================
 
 /**
- * Generates a clean, full URL for a given page slug.
+ * Builds an absolute front-controller URL for a single path segment (slug).
+ * Uses rawurlencode for the segment; invalid characters fall back to "home".
  *
- * @param string $page The page name/slug (e.g., 'tournaments').
- * @return string The full, clean URL (e.g., http://yoursite.com/tournaments).
+ * @param string $page Slug only (e.g. "news", "login"), no slashes or query string.
+ * @return string Full URL (BASE_URL + slug).
  */
 function get_page_url($page) {
-    // Sanitize the page parameter to prevent injection
-    $page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
-    
-    // Remove any potential path traversal attempts
-    $page = str_replace(['../', '..\\', './'], '', $page);
-    
-    // Appends the page name to the dynamic BASE_URL to create a clean URL.
-    return BASE_URL . $page;
+    $page = trim((string) $page, '/');
+    $page = str_replace(['../', '..\\', './', '.\\'], '', $page);
+    if ($page === '' || !is_valid_slug($page)) {
+        $page = 'home';
+    }
+
+    return rtrim(BASE_URL, '/') . '/' . rawurlencode($page);
 }
 
 
