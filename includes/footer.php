@@ -44,8 +44,7 @@
 
                 <div class="footer-bar flex flex-col sm:flex-row items-center justify-between px-4 py-3 rounded-b-md">
                     <div class="text-xs text-[#a1722f]/75 text-center sm:text-left mb-2 sm:mb-0">
-                        &copy; <?php echo date("Y"); ?> <?php echo esc(SITE_TITLE); ?>. All Rights Reserved.
-                        <br class="sm:hidden"> Designed by <a href="https://macweb.ca/" target="_blank" class="hover:text-[#b98d4a]">MacWeb Canada</a>.
+                        Copyright (c) 2026 MacWeb Canada | Professional Online Solutions | <a href="https://macweb.ca/" target="_blank" rel="noopener noreferrer" class="hover:text-[#b98d4a]">macweb.ca</a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <a href="#" class="text-[#a1722f] hover:text-white"><i class="fab fa-twitter"></i></a>
