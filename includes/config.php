@@ -11,6 +11,8 @@
  * @last_updated  July 5, 2025
  */
 
+define('ROOT_PATH', dirname(__DIR__));
+
 //===================================================================
 // SECTION 1: ERROR REPORTING & ENVIRONMENT
 //===================================================================
@@ -18,8 +20,17 @@
 // to show all errors. For a live production server, this should be
 // set to 0 and errors should be logged to a private file.
 
-// Environment detection - you can set this manually or use a better method
-$is_production = ($_SERVER['HTTP_HOST'] ?? '') !== 'localhost';
+// Environment detection — local hosts = development; anything else (e.g. dackcms.dackdns.ddns.net) = production
+$http_host = $_SERVER['HTTP_HOST'] ?? '';
+$host_only = strtolower(preg_replace('/:\d+$/', '', $http_host));
+$host_only = trim($host_only, '[]'); // [::1] -> ::1
+$is_development = $http_host === ''
+    || in_array($host_only, ['localhost', '127.0.0.1', '::1'], true);
+$is_production = !$is_development;
+
+// True when the request is served over HTTPS (or TLS-terminated with X-Forwarded-Proto)
+$is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
 
 if ($is_production) {
     // Production settings
@@ -44,14 +55,11 @@ date_default_timezone_set('America/Halifax');
 //===================================================================
 // Defines crucial path and URL constants for the application.
 
-// Define the absolute server path to the project root.
-define('ROOT_PATH', dirname(__DIR__));
-
 // Define the public Base URL - auto-detect or set manually
 if (!defined('BASE_URL')) {
     if ($is_production) {
-        // Set your production URL here
-        define('BASE_URL', 'https://yoursite.com/');
+        // Live site (must end with /). If you deploy in a subdirectory, include it: e.g. https://host/subdir/
+        define('BASE_URL', 'http://dackcms.dackdns.ddns.net/');
     } else {
         // Auto-detect for development
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
@@ -101,7 +109,7 @@ if ($is_production) {
 // Session security settings
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_secure', $is_production ? 1 : 0);
+ini_set('session.cookie_secure', $is_https ? 1 : 0);
 ini_set('session.cookie_samesite', 'Lax');
 
 // Define allowed file types for uploads (if you implement file uploads)

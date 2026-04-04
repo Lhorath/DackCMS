@@ -31,6 +31,10 @@ Options -Indexes
 # Turn on the URL rewriting engine.
 RewriteEngine On
 
+# Document root is this project folder (live: http://dackcms.dackdns.ddns.net/).
+# If the app lives in a subdirectory, set this to that path (e.g. RewriteBase /dackcms/).
+RewriteBase /
+
 # Conditions: Do not apply the rewrite rule if the request is for
 # an existing file (-f) or an existing directory (-d). This allows
 # direct access to assets like CSS files, images, and scripts.
