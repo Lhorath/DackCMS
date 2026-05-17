@@ -97,9 +97,10 @@ define('CONTACT_FORM_TO', env_str('CONTACT_FORM_TO', ''));
 //===================================================================
 // Loaded from .env (root of project). Defaults match local MySQL/MariaDB.
 
-define('DB_HOST', env_str('DB_HOST', 'localhost'));
-define('DB_USER', env_str('DB_USER', 'root'));
-define('DB_PASS', env_str('DB_PASS', ''));
+define('DB_HOST', env_str('DB_HOST', '127.0.0.1'));
+define('DB_PORT', (int) env_str('DB_PORT', '3306'));
+define('DB_USER', env_str('DB_USER', 'website'));
+define('DB_PASS', env_str('DB_PASS', 'dax123'));
 define('DB_NAME', env_str('DB_NAME', 'dackcms'));
 
 

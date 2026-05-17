@@ -37,7 +37,7 @@ $options = [
 
 try {
     // The Data Source Name (DSN) combines the driver, host, database name, and charset.
-    $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+    $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
     
     // Create the new PDO object. This object will be used for all database queries.
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
